@@ -1,7 +1,3 @@
-Here’s a draft for your README file for the DFP (Drone Flight Planner) project:
-
----
-
 # DFP (Drone Flight Planner)
 
 ## Project Overview
@@ -38,7 +34,7 @@ Here’s a draft for your README file for the DFP (Drone Flight Planner) project
 
 ## Usage
 1. Input drone data such as max flight time, speed, and payload.
-2. Receive a generated flight plan optimized for battery life, speed, and distance.
+2. Receive a generated flight plan optimized for endurance, speed, distance and humidity.
 3. View the estimated success rate based on environmental conditions and drone capabilities.
 
 ## Project by:

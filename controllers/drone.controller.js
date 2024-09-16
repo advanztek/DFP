@@ -61,7 +61,7 @@ const evaluateMission = (distance, weather, droneData) => {
             check: "Range",
             result: "Fail",
             impact: CRITICAL_PENALTY,
-            values: { required: distance, available: range }
+            values: { required: distance + " km/h", available: range + " km/h" }
         });
         missionFeasible = false;  // Critical failure
         penalty += CRITICAL_PENALTY;
@@ -70,7 +70,7 @@ const evaluateMission = (distance, weather, droneData) => {
             check: "Range",
             result: "Pass",
             impact: 0,
-            values: { required: distance, available: range }
+            values: { required: distance + " km/h", available: range + " km/h" }
         });
     }
 
@@ -82,7 +82,7 @@ const evaluateMission = (distance, weather, droneData) => {
             check: "Endurance",
             result: "Fail",
             impact: CRITICAL_PENALTY,
-            values: { required: requiredTime, available: endurance }
+            values: { required: requiredTime + " hrs", available: endurance + " hrs" }
         });
         missionFeasible = false;  // Critical failure
         penalty += CRITICAL_PENALTY;
@@ -91,7 +91,7 @@ const evaluateMission = (distance, weather, droneData) => {
             check: "Endurance",
             result: "Pass",
             impact: 0,
-            values: { required: requiredTime, available: endurance }
+            values: { required: requiredTime + " hrs", available: endurance + " hrs" }
         });
     }
 
@@ -113,7 +113,7 @@ const evaluateMission = (distance, weather, droneData) => {
             check: "Wind Speed",
             result: "Fail",
             impact: SECONDARY_PENALTY,
-            values: { current: windSpeedInKmh, maxAllowed: maxSpeed }
+            values: { required: windSpeedInKmh + " km/h", maxAllowed: maxSpeed + " km/h" }
         });
         penalty += SECONDARY_PENALTY;
     } else if (windSpeedInKmh >= 0.5 * maxSpeed) {
@@ -122,7 +122,7 @@ const evaluateMission = (distance, weather, droneData) => {
             check: "Wind Speed",
             result: "Warning",
             impact: SECONDARY_PENALTY,
-            values: { current: windSpeedInKmh, maxAllowed: maxSpeed }
+            values: { required: windSpeedInKmh + " km/h", maxAllowed: maxSpeed + " km/h" }
         });
         penalty += SECONDARY_PENALTY;
     } else {
@@ -130,7 +130,7 @@ const evaluateMission = (distance, weather, droneData) => {
             check: "Wind Speed",
             result: "Pass",
             impact: 0,
-            values: { current: windSpeedInKmh, maxAllowed: maxSpeed }
+            values: { required: windSpeedInKmh + " km/h", maxAllowed: maxSpeed + " km/h" }
         });
     }
 
@@ -141,7 +141,7 @@ const evaluateMission = (distance, weather, droneData) => {
             check: "Temperature",
             result: "Fail",
             impact: SECONDARY_PENALTY,
-            values: { current: weather.temp, maxAllowed: maxTemperature }
+            values: { current: weather.temp + "°C", maxAllowed: maxTemperature + "°C" }
         });
         penalty += SECONDARY_PENALTY;
     } else if (weather.temp < minTemperature) {
@@ -150,7 +150,7 @@ const evaluateMission = (distance, weather, droneData) => {
             check: "Temperature",
             result: "Fail",
             impact: SECONDARY_PENALTY,
-            values: { current: weather.temp, minAllowed: minTemperature }
+            values: { current: weather.temp + "°C", minAllowed: minTemperature + "°C" }
         });
         penalty += SECONDARY_PENALTY;
     } else {
@@ -158,7 +158,7 @@ const evaluateMission = (distance, weather, droneData) => {
             check: "Temperature",
             result: "Pass",
             impact: 0,
-            values: { current: weather.temp, minAllowed: minTemperature, maxAllowed: maxTemperature }
+            values: { current: weather.temp + "°C", minAllowed: minTemperature + "°C", maxAllowed: maxTemperature + "°C" }
         });
     }
 
@@ -169,7 +169,7 @@ const evaluateMission = (distance, weather, droneData) => {
             check: "Humidity",
             result: "Fail",
             impact: SECONDARY_PENALTY,
-            values: { current: weather.humidity, maxAllowed: maxHumidity }
+            values: { current: weather.humidity + "%", maxAllowed: maxHumidity + "%" }
         });
         penalty += SECONDARY_PENALTY;
     } else {
@@ -177,7 +177,7 @@ const evaluateMission = (distance, weather, droneData) => {
             check: "Humidity",
             result: "Pass",
             impact: 0,
-            values: { current: weather.humidity, maxAllowed: maxHumidity }
+            values: { current: weather.humidity + "%", maxAllowed: maxHumidity + "%" }
         });
     }
 
