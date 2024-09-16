@@ -38,12 +38,12 @@ const getWeatherData = async (coordinates, missionDateTime) => {
 };
 
 // Enhanced mission evaluation based on drone data and weather
-const evaluateMission = (distance, weather, droneData) => {
-    const { endurance, range, maxSpeed, maxTemperature, minTemperature, maxHumidity } = droneData;
-
+const evaluateMission = (distance, droneData) => {
+    const { endurance, range, maxSpeed, weather, maxTemperature, minTemperature, maxHumidity } = droneData;
+    console.log("weather:",weather)
     // Convert wind speed from m/s to km/h
     const windSpeedInKmh = weather.wind_speed * 3.6;
-
+    
     // Conditions evaluation
     let reasons = [];
     let checks = [];
@@ -238,11 +238,12 @@ const planMission = async (req, res) => {
             endurance,
             range,
             maxSpeed,
+            weather: weather.data[0],
             maxTemperature: validMaxTemperature,
             minTemperature: validMinTemperature,
             maxHumidity: validMaxHumidity
         };
-        const missionEvaluation = evaluateMission(distance, weather, droneData);
+        const missionEvaluation = evaluateMission(distance, droneData);
 
         return res.status(200).json({
             success: true,
